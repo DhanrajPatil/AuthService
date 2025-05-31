@@ -11,9 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class UserOtp extends EntityBaseClass {
-    private String userName;
-    private String otp;
-    private Long expiryTime;
-    private Boolean isVerified = false;
+public class Role extends EntityBaseClass{
+    private String name;
 }

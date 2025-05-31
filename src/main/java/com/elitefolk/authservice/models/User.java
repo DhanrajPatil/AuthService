@@ -1,13 +1,23 @@
 package com.elitefolk.authservice.models;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Entity(name = "users")
-@Table(name = "users")
-public class User extends EntityBaseClass{
+@Table(
+    name = "users",
+    indexes = {
+        @Index(name = "user_email_index", columnList = "email"),
+        @Index(name = "user_mobile_index", columnList = "mobile")
+    }
+)
+@Getter
+@Setter
+public class User extends EntityBaseClass {
     @Column(length = 30, nullable = false)
     private String firstName;
     @Column(length = 30, nullable = false)
@@ -21,8 +31,12 @@ public class User extends EntityBaseClass{
     @Column(nullable = false)
     private String password;
 
-    private String role;
+    @Column(length = 100, unique = true)
+    private String profileUrl;
+
+    @ManyToMany
+    private List<Role> roles;
+
     private boolean isEmailVerified;
     private boolean isMobileVerified;
-
 }

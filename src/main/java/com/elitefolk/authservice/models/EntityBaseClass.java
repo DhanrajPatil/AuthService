@@ -21,16 +21,19 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EnableJpaAuditing
-public class EntityBaseClass implements Serializable {
+public abstract class EntityBaseClass implements Serializable {
     @Id
     private UUID id;
     @CreationTimestamp
     private Long createdDate;
     @UpdateTimestamp
     private Long updatedDate;
-    private Boolean isDeleted = false;
+
+    private boolean isDeleted = false;
+
     @PrePersist
     public void generateId() {
-        this.id = UuidCreator.getTimeOrdered();
+        if(id == null)
+            this.id = UuidCreator.getTimeOrdered();
     }
 }
